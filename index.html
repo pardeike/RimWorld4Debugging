@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="
+default-src 'self' 'unsafe-inline';
+font-src 'self' https://ka-f.fontawesome.com;
+script-src 'self' https://kit.fontawesome.com;
+connect-src 'self' https://ka-f.fontawesome.com">
+  <title>RimWorld4Debugging</title>
+  <script src="https://kit.fontawesome.com/4bb7b536ff.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <h1 class="nowrap">RimWorld 4 Debugging</h1>
+  <div id="navigation">
+    <i id="nav-prev" class="fa-solid fa-circle-left"></i>
+    <span id="nav-text"></span>
+    <i id="nav-next" class="fa-solid fa-circle-right"></i>
+  </div>
+  <div id="content"></div>
+
+  <div class="template" id="next">
+    <div>Next</div>
+  </div>
+
+  <div class="template" id="page1">
+    <!--<div draggable="true" id="drag">
+        <div>
+          <i class="fa-solid fa-file"></i>
+          <span>Some File</span>
+        </div>
+      </div>-->
+    <h3>Welcome</h3>
+    <p>Want to debug RimWorld? This application will get you started.</p>
+    <p>If you have trouble or find bugs, join our <a href="https://discord.gg/2q7U6URNr3"
+        title="https://discord.gg/2q7U6URNr3" target="_blank">Discord</a>.
+    </p>
+    <p class="important">Please follow all the steps exactly</p>
+    <p style="padding-top:50px">
+      <img src="img/brrainz.png" width="64" height="64" style="border-radius:8px" /><br />
+      Brrainz
+    </p>
+  </div>
+
+  <div class="template" id="page2">
+    <h3>Preparing</h3>
+  </div>
+
+  <script src="./js/tools.js"></script>
+  <script src="./js/navigation.js"></script>
+  <script src="./js/pages.js"></script>
+</body>
+
+</html>
