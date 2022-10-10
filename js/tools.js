@@ -13,3 +13,7 @@ async function processInfo(name) {
 function openPath(path) {
   window.electron.shell('openPath', path)
 }
+
+function fileProperties(path) {
+  return window.electron.fileVersion(path)
+}

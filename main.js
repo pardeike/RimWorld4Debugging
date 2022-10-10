@@ -1,5 +1,6 @@
 const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron')
 const find = require('find-process')
+const winVersionInfo = require('win-version-info')
 const path = require('path')
 
 const createWindow = () => {
@@ -39,6 +40,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle("shell", async (_, method, params) => {
     return await shell[method](params)
+  })
+
+  ipcMain.handle("fileVersion", async (_, path) => {
+    return winVersionInfo(path).FileVersion
   })
 
   ipcMain.on('ondragstart', (event, filePath) => {

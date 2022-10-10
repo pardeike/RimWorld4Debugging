@@ -28,15 +28,48 @@ body {
   user-select: none;
 }
 
+hr {
+  border: 1px solid gray;
+  border-style: dashed;
+  margin: 10px 0 10px 0;
+}
+
 a {
   color: aquamarine;
   text-decoration: none;
   cursor: pointer;
 }
 
+b {
+  color: white;
+}
+
+code {
+  position: relative;
+  top: 1px;
+  font-family: sans-serif;
+  background-color: #ddd;
+  color: #333;
+  padding: 3px 3px 1px 3px;
+}
+
 ol,
 ul {
   padding-left: 20px;
+}
+
+li {
+  padding-bottom: 8px;
+}
+
+button {
+  background-color: aquamarine;
+  color: black;
+  border: 0;
+  border-radius: 3px;
+  padding: 5px 10px 3px 10px;
+  outline: none;
+  cursor: pointer;
 }
 
 table {
@@ -46,6 +79,21 @@ table {
 table td {
   padding: 8px 8px 4px 8px;
   border: 1px solid #666;
+}
+
+.spacer {
+  padding-top: 20px;
+}
+
+.textinput {
+  background-color: black;
+  color: white;
+  padding: 6px;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #444;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .nowrap {
@@ -77,6 +125,36 @@ table td {
 
   100% {
     box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+#spinner {
+  position: absolute;
+  z-index: 1000;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  border-radius: 10%;
+  width: 64px;
+  height: 64px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 2em;
+  display: none;
+  justify-items: center;
+}
+
+#spinner i {
+  align-self: center;
+  animation: rotate 0.5s alternate-reverse infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(-1);
   }
 }
 

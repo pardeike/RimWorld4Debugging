@@ -1,4 +1,4 @@
-var currentPage = 5
+var currentPage = 1
 const totalPages = (() => {
   for (let i = 1; true; i++) {
     if (!document.getElementById(`page${i}`))
@@ -18,6 +18,7 @@ document.querySelector('#nav-next').addEventListener('click', () => {
 })
 
 async function jumpToPage(delta) {
+  document.getElementById('spinner').style.display = 'grid'
   currentPage = Math.min(totalPages, Math.max(1, currentPage + delta))
   document.getElementById('nav-text').innerHTML = `Step ${currentPage} of ${totalPages}`
   const pageContent = document.getElementById(`page${currentPage}`)
@@ -32,19 +33,23 @@ async function jumpToPage(delta) {
     var keys = Object.keys(pageConditions)
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
-      const show = await pageConditions[key]()
-      if (show)
-        html = html.replace(new RegExp(`<!-- *ELSE:${key} *-->.+?<!-- *END *-->`, 'smg'), '')
-      else
-        html = html.replace(new RegExp(`<!-- *IF:${key} *-->.+?<!-- *END *-->`, 'smg'), '')
+      if (html.match(new RegExp(`:${key}`))) {
+        const show = await pageConditions[key]()
+        if (show)
+          html = html.replace(new RegExp(`<!-- *ELSE:${key} *-->.+?<!-- *END *-->`, 'smg'), '')
+        else
+          html = html.replace(new RegExp(`<!-- *IF:${key} *-->.+?<!-- *END *-->`, 'smg'), '')
+      }
     }
 
     keys = Object.keys(pageValues)
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
-      const value = await pageValues[key]()
-      html = html.replace(new RegExp(`"VAL:${key}"`, 'smg'), value)
-      html = html.replace(new RegExp(`<!-- *VAL:${key} *-->`, 'smg'), value)
+      if (html.match(new RegExp(`VAL:${key}`))) {
+        const value = await pageValues[key]()
+        html = html.replace(new RegExp(`"VAL:${key}"`, 'smg'), value)
+        html = html.replace(new RegExp(`<!-- *VAL:${key} *-->`, 'smg'), value)
+      }
     }
 
     const eventFunctions = {}
@@ -64,6 +69,8 @@ async function jumpToPage(delta) {
       const key = keys[i]
       document.querySelector(`#${key}`).addEventListener('click', eventFunctions[key])
     }
+
+    document.getElementById('spinner').style.display = 'none'
 
     if (currentPage < totalPages) {
       contentElement.innerHTML += nextButtonHTML

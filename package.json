@@ -27,6 +27,7 @@
     "electron": "^21.1.0"
   },
   "dependencies": {
-    "find-process": "^1.4.7"
+    "find-process": "^1.4.7",
+    "win-version-info": "^6.0.1"
   }
 }

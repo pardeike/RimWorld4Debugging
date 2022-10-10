@@ -14,6 +14,7 @@ connect-src 'self' https://ka-f.fontawesome.com">
 </head>
 
 <body>
+  <div id="spinner"><i class="fa-solid fa-wrench"></i></div>
   <h1 class="nowrap">RimWorld 4 Debugging</h1>
   <div id="navigation">
     <i id="nav-prev" class="fa-solid fa-circle-left"></i>
@@ -126,6 +127,22 @@ connect-src 'self' https://ka-f.fontawesome.com">
     <ol>
       <li>Click <a href="steam://run/294100//">here</a> to start RimWorld via Steam</li>
       <li>Click <a id="CLICK:refreshRimWorld">Refresh</a></li>
+    </ol>
+    </p>
+    <p class="spacer" />
+    <hr />
+    <p>
+      If that does not work, you can manually locate your RimWorld folder
+    </p>
+    <ol>
+      <li>
+        Find your RimWorld folder. It should contain a file called <b>RimWorldWin64.exe</b>
+      </li>
+      <li>
+        Right click on <b>RimWorldWin64.exe</b>, choose <code>Copy as Path</code> and paste it here:<br />
+        <input id="rimworldFolder" type="text" class="textinput" style="width: 80%" /><br />
+        <button id="CLICK:setRimWorldFolder">Save</button>
+      </li>
     </ol>
     </p>
     <!--END-->
