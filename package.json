@@ -1,0 +1,26 @@
+{
+  "name": "rimworld4debugging",
+  "version": "0.1.0",
+  "description": "This project will help you with debugging RimWorld",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pardeike/RimWorld4Debugging.git"
+  },
+  "keywords": [
+    "rimworld",
+    "c#",
+    "debugging",
+    "mono",
+    "visualstudio"
+  ],
+  "author": "Andreas Pardeike",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pardeike/RimWorld4Debugging/issues"
+  },
+  "homepage": "https://github.com/pardeike/RimWorld4Debugging#readme"
+}
