@@ -3,6 +3,7 @@ const path = require('path')
 
 const createWindow = () => {
   const win = new BrowserWindow({
+    backgroundColor: '#333',
     width: 800,
     minWidth: 800,
     height: 600,
@@ -10,11 +11,15 @@ const createWindow = () => {
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
-    }
+    },
+    show: false
   })
   if (app.isPackaged)
     win.setMenu(null)
   win.loadFile('index.html')
+  win.webContents.on('did-finish-load', function () {
+    setTimeout(() => win.show(), 120)
+  })
 }
 
 app.on('window-all-closed', () => {
