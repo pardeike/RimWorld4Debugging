@@ -14,5 +14,7 @@ contextBridge.exposeInMainWorld('electron', {
   startDrag: fileName => {
     ipcRenderer.send('ondragstart', path.join(process.cwd(), fileName))
   },
-  openDialog: (method, config) => ipcRenderer.invoke("dialog", method, config)
+  find: (typ, val, strict) => ipcRenderer.invoke("find", typ, val, strict),
+  openDialog: (method, config) => ipcRenderer.invoke("dialog", method, config),
+  shell: (method, config) => ipcRenderer.invoke("shell", method, config)
 })

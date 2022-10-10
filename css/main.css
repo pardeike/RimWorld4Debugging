@@ -31,6 +31,21 @@ body {
 a {
   color: aquamarine;
   text-decoration: none;
+  cursor: pointer;
+}
+
+ol,
+ul {
+  padding-left: 20px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table td {
+  padding: 8px 8px 4px 8px;
+  border: 1px solid #666;
 }
 
 .nowrap {

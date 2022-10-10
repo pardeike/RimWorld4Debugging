@@ -1,13 +1,14 @@
-const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron')
+const find = require('find-process')
 const path = require('path')
 
 const createWindow = () => {
   const win = new BrowserWindow({
     backgroundColor: '#333',
-    width: 800,
-    minWidth: 800,
-    height: 600,
-    minHeight: 620,
+    width: 1024,
+    minWidth: 1024,
+    height: 768,
+    minHeight: 788,
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
@@ -28,8 +29,16 @@ app.on('window-all-closed', () => {
 
 app.whenReady().then(() => {
 
+  ipcMain.handle("find", async (_, typ, val, strict) => {
+    return await find(typ, val, strict)
+  })
+
   ipcMain.handle("dialog", async (_, method, params) => {
     return await dialog[method](params)
+  })
+
+  ipcMain.handle("shell", async (_, method, params) => {
+    return await shell[method](params)
   })
 
   ipcMain.on('ondragstart', (event, filePath) => {

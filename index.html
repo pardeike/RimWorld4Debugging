@@ -46,12 +46,94 @@ connect-src 'self' https://ka-f.fontawesome.com">
   </div>
 
   <div class="template" id="page2">
-    <h3>Preparing</h3>
+    <h3>Download and Install (1)</h3>
+    <p>Visual Studio Community</p>
+    <p>
+    <ul>
+      <li>
+        <p>Download: <a href="https://visualstudio.microsoft.com/vs/community/"
+            target="_blank">https://visualstudio.microsoft.com/vs/community/</a></p>
+        <p>When installing, check at least these two options:<br />
+          <img src="img/setup1.png" /><br />
+          <img src="img/setup2.png" />
+        </p>
+        <p>You will also need:<br /><img src="img/net472.png" /></p>
+      </li>
+    </ul>
+    </p>
+  </div>
+
+  <div class="template" id="page3">
+    <h3>Download and Install (2)</h3>
+    <p>JetBrains dotPeek</p>
+    <p>
+    <ul>
+      <li>
+        <p>Download: <a href="https://www.jetbrains.com/decompiler/download/"
+            target="_blank">https://www.jetbrains.com/decompiler/download/</a></p>
+        <p>After installation, <b>dotUltimate</b> will ask you to install a lot of things.<br />
+          For now, only choose:<br /><br />
+          <img src="img/dotPeek.png" />
+        </p>
+      </li>
+    </ul>
+    </p>
+  </div>
+
+  <div class="template" id="page4">
+    <h3>Download and Install (3)</h3>
+    <p>Unity Hub</p>
+    <p>
+    <ul>
+      <li>
+        <p>Download: <a href="https://unity3d.com/get-unity/download"
+            target="_blank">https://unity3d.com/get-unity/download</a></p>
+        <p>After installation, do not start choosing a <b>Unity Editor</b> yet.</p>
+        <p>We need to match the Unity version to your RimWorld version. Before we use<br />
+          the Hub, we need to locate your RimWorld installation.</p>
+      </li>
+    </ul>
+    </p>
+  </div>
+
+  <div class="template" id="page5">
+    <h3>RimWorld</h3>
+    <p>Finding your game folder<br />&nbsp;</p>
+    <!--IF:rimworldFound-->
+    <p>We found your RimWorld folder!</p>
+    <p>
+    <table>
+      <tr>
+        <td>Directory</td>
+        <td>
+          <a id="CLICK:openRimWorldFolder">
+            <!--VAL:rimworldFolder-->
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>Unity Version</td>
+        <td>
+          <!--VAL:rimworldVersion-->
+        </td>
+      </tr>
+    </table>
+    </p>
+    <!--END-->
+    <!--ELSE:rimworldFound-->
+    <p>Many people have RimWorld in non-standard locations. Help to locate it:</p>
+    <p>
+    <ol>
+      <li>Click <a href="steam://run/294100//">here</a> to start RimWorld via Steam</li>
+      <li>Click <a id="CLICK:refreshRimWorld">Refresh</a></li>
+    </ol>
+    </p>
+    <!--END-->
   </div>
 
   <script src="./js/tools.js"></script>
-  <script src="./js/navigation.js"></script>
   <script src="./js/pages.js"></script>
+  <script src="./js/navigation.js"></script>
 </body>
 
 </html>

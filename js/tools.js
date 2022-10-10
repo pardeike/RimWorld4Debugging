@@ -6,6 +6,10 @@ async function chooseDirectory(title) {
   return result.filePaths[0]
 }
 
-function test() {
-  alert('test')
+async function processInfo(name) {
+  return await window.electron.find('name', name, true)
+}
+
+function openPath(path) {
+  window.electron.shell('openPath', path)
 }
