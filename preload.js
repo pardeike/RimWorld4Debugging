@@ -14,8 +14,11 @@ contextBridge.exposeInMainWorld('electron', {
   startDrag: fileName => {
     ipcRenderer.send('ondragstart', path.join(process.cwd(), fileName))
   },
-  find: (typ, val, strict) => ipcRenderer.invoke("find", typ, val, strict),
-  openDialog: (method, config) => ipcRenderer.invoke("dialog", method, config),
-  shell: (method, config) => ipcRenderer.invoke("shell", method, config),
-  fileVersion: path => ipcRenderer.invoke("fileVersion", path)
+  has: (key) => ipcRenderer.invoke('has', key),
+  load: (key) => ipcRenderer.invoke('load', key),
+  save: (key, val) => ipcRenderer.invoke('save', key, val),
+  find: (typ, val, strict) => ipcRenderer.invoke('find', typ, val, strict),
+  openDialog: (method, config) => ipcRenderer.invoke('dialog', method, config),
+  shell: (method, config) => ipcRenderer.invoke('shell', method, config),
+  fileVersion: path => ipcRenderer.invoke('fileVersion', path)
 })

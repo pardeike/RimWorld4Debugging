@@ -27,6 +27,7 @@
     "electron": "^21.1.0"
   },
   "dependencies": {
+    "electron-json-storage": "^4.5.0",
     "find-process": "^1.4.7",
     "win-version-info": "^6.0.1"
   }

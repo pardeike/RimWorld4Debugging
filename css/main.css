@@ -85,6 +85,12 @@ table td {
   padding-top: 20px;
 }
 
+.ok {
+  padding-top: 10px;
+  color: aquamarine;
+  font-size: 2em;
+}
+
 .textinput {
   background-color: black;
   color: white;

@@ -120,6 +120,7 @@ connect-src 'self' https://ka-f.fontawesome.com">
       </tr>
     </table>
     </p>
+    <p><i class="ok fa-solid fa-check"></i></p>
     <!--END-->
     <!--ELSE:rimworldFound-->
     <p>Many people have RimWorld in non-standard locations. Help to locate it:</p>
@@ -147,6 +148,39 @@ connect-src 'self' https://ka-f.fontawesome.com">
     </p>
     <!--END-->
   </div>
+
+  <div class="template" id="page6">
+    <h3>Download and Install (4)</h3>
+    <p>Unity Editor</p>
+    <!--IF:unityFound-->
+    <p>
+      We found the correct Unity installation for your RimWorld version:<br />
+      <a id="CLICK:openUnityFolder">
+        <!--VAL:unityFolder-->
+      </a>
+    </p>
+    <p><i class="ok fa-solid fa-check"></i></p>
+    <!--END-->
+    <!--ELSE:unityFound-->
+    <p>
+    <ul>
+      <li>Open the <a id="CLICK:openUnityDownloadArchive">Unity download archive</a></li>
+      <li>Find the version that matches your RimWorld version:<b>
+          <span class="important">
+            <!--VAL:rimworldVersionShort-->f1
+          </span>
+        </b></li>
+      <li>In your browser, click this button:<br /><img src="img/unityhub.png" /></li>
+    </ul>
+    </p>
+    <p>
+      <hr />
+    </p>
+    <p>Waiting until Unity Hub completes the installation ...</p>
+    <!--END-->
+  </div>
+
+  <div class="template" id="page7"></div>
 
   <script src="./js/tools.js"></script>
   <script src="./js/pages.js"></script>

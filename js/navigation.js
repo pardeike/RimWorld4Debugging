@@ -1,4 +1,4 @@
-var currentPage = 1
+var currentPage = 0
 const totalPages = (() => {
   for (let i = 1; true; i++) {
     if (!document.getElementById(`page${i}`))
@@ -18,8 +18,16 @@ document.querySelector('#nav-next').addEventListener('click', () => {
 })
 
 async function jumpToPage(delta) {
-  document.getElementById('spinner').style.display = 'grid'
+  if (currentPage == 0) {
+    // initial page loading
+    currentPage = await getPreference('currentPage', 1)
+    loadSetting()
+  }
+  const spinnerTimer = setTimeout(() => {
+    document.getElementById('spinner').style.display = 'grid'
+  }, 100)
   currentPage = Math.min(totalPages, Math.max(1, currentPage + delta))
+  await setPreference('currentPage', currentPage)
   document.getElementById('nav-text').innerHTML = `Step ${currentPage} of ${totalPages}`
   const pageContent = document.getElementById(`page${currentPage}`)
   if (pageContent) {
@@ -64,17 +72,20 @@ async function jumpToPage(delta) {
     }
 
     contentElement.innerHTML = html
-    keys = Object.keys(eventFunctions)
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i]
-      document.querySelector(`#${key}`).addEventListener('click', eventFunctions[key])
-    }
+    setTimeout(() => {
+      keys = Object.keys(eventFunctions)
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        document.getElementById(key).addEventListener('click', eventFunctions[key])
+      }
+    }, 500)
 
+    clearTimeout(spinnerTimer)
     document.getElementById('spinner').style.display = 'none'
 
-    if (currentPage < totalPages) {
+    if (currentPage < totalPages && (!pageContinuation[currentPage] || await pageContinuation[currentPage]())) {
       contentElement.innerHTML += nextButtonHTML
-      document.querySelector('#nextButton').addEventListener('click', () => {
+      document.getElementById('nextButton').addEventListener('click', () => {
         jumpToPage(1)
         return false
       })
