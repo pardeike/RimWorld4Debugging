@@ -10,8 +10,10 @@ const createWindow = () => {
     backgroundColor: '#333',
     width: 1024,
     minWidth: 1024,
+    maxWidth: 1024,
     height: 768,
     minHeight: 788,
+    maxHeight: 788,
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
@@ -105,13 +107,12 @@ app.whenReady().then(() => {
 
   ipcMain.handle('appendIfNecessary', async (_, source, text) => {
     try {
-      const file = await fs.readFile(source)
+      const file = await fs.readFile(source, 'utf8')
       if (!file.includes(text)) {
         const lineEnding = file.includes('\r\n') ? '\r\n' : '\n'
-        if (file.lastIndexOf(lineEnding) !== file.length - lineEnding.length) {
+        if (file.lastIndexOf(lineEnding) !== file.length - lineEnding.length)
           text = lineEnding + text
-          await fs.appendFile(source, `${text}${lineEnding}`)
-        }
+        await fs.appendFile(source, `${text}${lineEnding}`)
       }
       return ''
     } catch (error) {
@@ -120,7 +121,6 @@ app.whenReady().then(() => {
   })
 
   createWindow()
-
   console.log(`preferences: ${app.getPath('userData')}`)
 
   app.on('activate', () => {

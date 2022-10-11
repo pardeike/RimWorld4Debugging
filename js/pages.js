@@ -1,9 +1,11 @@
 var rimWorldFolder = ''
 var rimworldVersion = ''
+var isPatched = false
 
 async function loadSetting() {
   rimWorldFolder = await getPreference('rimWorldFolder', '')
   rimworldVersion = await getPreference('rimworldVersion', '')
+  isPatched = await getPreference('isPatched', false)
 }
 
 const pageFilters = {
@@ -26,12 +28,14 @@ const pageConditions = {
     const unityVersion = await fileProperties(`${unityRootPath}\\Unity.exe`)
     const rimworldVersionShort = rimworldVersion.replace(/\.\d+$/, '')
     return unityVersion && unityVersion.indexOf(rimworldVersionShort) === 0
-  }
+  },
+  isPatched: async () => isPatched
 }
 
 const pageContinuation = {
   5: async () => rimWorldFolder && rimworldVersion,
-  6: pageConditions.unityFound
+  6: pageConditions.unityFound,
+  9: async () => isPatched
 }
 
 const pageValues = {
@@ -42,7 +46,8 @@ const pageValues = {
   unityDevMono: async () => unityRoot(rimworldVersion, 'Data\\PlaybackEngines\\windowsstandalonesupport\\Variations\\win64_development_mono'),
   rimworldManagedFolder: async () => rimWorldFolder + '\\RimWorldWin64_Data\\Managed',
   rimworldExportSuggestion: async () => rimWorldFolder.replace(/\\[^\\]+$/, ''),
-  rimworldExportFolder: async () => rimWorldFolder.replace(/\\[^\\]+$/, '') + '\\Assembly-CSharp'
+  rimworldExportFolder: async () => rimWorldFolder.replace(/\\[^\\]+$/, '') + '\\Assembly-CSharp',
+  rimworldDebugSolution: async () => rimWorldFolder.replace(/\\[^\\]+$/, '') + '\\Assembly-CSharp\\Assembly-CSharp.sln'
 }
 
 const pageEvents = {
@@ -53,13 +58,16 @@ const pageEvents = {
     openPath(unityRoot(rimworldVersion))
   },
   openRimWorldManaged: async () => {
-    openPath(rimWorldFolder + '\\RimWorldWin64_Data\\Managed')
+    openPath(await pageValues.rimworldManagedFolder())
   },
   openRimWorldAssemblyCSharp: async () => {
-    openPath(rimWorldFolder + '\\RimWorldWin64_Data\\Managed\\Assembly-CSharp.dll')
+    openPath(await pageValues.rimworldManagedFolder() + '\\Assembly-CSharp.dll')
   },
   openUnityDownloadArchive: async () => {
     openPath('https://unity3d.com/get-unity/download/archive')
+  },
+  openRimworldDebugSolution: async () => {
+    openPath(await pageValues.rimworldDebugSolution())
   },
   setRimWorldFolder: async () => {
     const exePath = document.getElementById('rimworldFolder').value.replace(/"$/, '').replace(/^"/, '')
@@ -134,7 +142,11 @@ const pageEvents = {
       await sleep(200)
     setProgress(++n, total)
 
+    isPatched = true
+    await setPreference('isPatched', isPatched)
+
     await sleep(200)
     setProgress(-1, 0)
+    jumpToPage(0)
   }
 }

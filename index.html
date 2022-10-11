@@ -33,7 +33,7 @@ connect-src 'self' https://ka-f.fontawesome.com">
   <div class="template" id="page1">
     <h3>Welcome</h3>
     <p>Want to debug RimWorld? This application will get you started.</p>
-    <p>If you have trouble or find bugs, join our <a href="https://discord.gg/2q7U6URNr3"
+    <p>If you have trouble or find bugs, join my <a href="https://discord.gg/2q7U6URNr3"
         title="https://discord.gg/2q7U6URNr3" target="_blank">Discord</a>.
     </p>
     <p class="important">Please follow all the steps exactly</p>
@@ -46,7 +46,6 @@ connect-src 'self' https://ka-f.fontawesome.com">
   <div class="template" id="page2">
     <h3>Download and Install (1)</h3>
     <p>Visual Studio Community</p>
-    <p>
     <ul>
       <li>
         <p>Download: <a href="https://visualstudio.microsoft.com/vs/community/"
@@ -58,13 +57,11 @@ connect-src 'self' https://ka-f.fontawesome.com">
         <p>You will also need:<br /><img src="img/net472.png" /></p>
       </li>
     </ul>
-    </p>
   </div>
 
   <div class="template" id="page3">
     <h3>Download and Install (2)</h3>
     <p>JetBrains dotPeek</p>
-    <p>
     <ul>
       <li>
         <p>Download: <a href="https://www.jetbrains.com/decompiler/download/"
@@ -75,13 +72,11 @@ connect-src 'self' https://ka-f.fontawesome.com">
         </p>
       </li>
     </ul>
-    </p>
   </div>
 
   <div class="template" id="page4">
     <h3>Download and Install (3)</h3>
     <p>Unity Hub</p>
-    <p>
     <ul>
       <li>
         <p>Download: <a href="https://unity3d.com/get-unity/download"
@@ -91,11 +86,10 @@ connect-src 'self' https://ka-f.fontawesome.com">
           the Hub, we need to locate your RimWorld installation.</p>
       </li>
     </ul>
-    </p>
   </div>
 
   <div class="template" id="page5">
-    <h3>RimWorld</h3>
+    <h3>RimWorld Location</h3>
     <p>Finding your game folder<br />&nbsp;</p>
     <!--IF:rimworldFound-->
     <p>We found your RimWorld folder!</p>
@@ -121,12 +115,10 @@ connect-src 'self' https://ka-f.fontawesome.com">
     <!--END-->
     <!--ELSE:rimworldFound-->
     <p>Many people have RimWorld in non-standard locations. Help to locate it:</p>
-    <p>
     <ol>
       <li>Click <a href="steam://run/294100//">here</a> to start RimWorld via Steam</li>
       <li>Click <a id="CLICK:refreshRimWorld">Refresh</a></li>
     </ol>
-    </p>
     <p class="spacer" />
     <hr />
     <p>
@@ -142,7 +134,6 @@ connect-src 'self' https://ka-f.fontawesome.com">
         <button id="CLICK:setRimWorldFolder">Save</button>
       </li>
     </ol>
-    </p>
     <!--END-->
   </div>
 
@@ -159,7 +150,6 @@ connect-src 'self' https://ka-f.fontawesome.com">
     <p><i class="ok fa-solid fa-check"></i></p>
     <!--END-->
     <!--ELSE:unityFound-->
-    <p>
     <ul>
       <li>Open the <a id="CLICK:openUnityDownloadArchive">Unity download archive</a></li>
       <li>Find the version that matches your RimWorld version:<b>
@@ -169,7 +159,6 @@ connect-src 'self' https://ka-f.fontawesome.com">
         </b></li>
       <li>In your browser, click this button:<br /><img src="img/unityhub.png" /></li>
     </ul>
-    </p>
     <p>
       <hr />
     </p>
@@ -214,7 +203,7 @@ connect-src 'self' https://ka-f.fontawesome.com">
   </div>
 
   <div class="template" id="page9">
-    <h3>Copy Debub Files</h3>
+    <h3>Copy Debug Files</h3>
     <p>Using the Unity Editor files we replace some RimWorld files</p>
     <p class="spacer">Files we will replace/add:</p>
     <p class="minilink">
@@ -229,8 +218,74 @@ connect-src 'self' https://ka-f.fontawesome.com">
       <!--VAL:rimworldFolder-->\RimWorldWin64_Data\boot.config<br />
       <!--VAL:rimworldManagedFolder-->\Assembly-CSharp.ini
     </p>
+    <!--ELSE:isPatched-->
     <p class="spacer">Click the button below to start the copy process</p>
-    <button id="CLICK:copyFiles">Copy Files</button>
+    <p>
+      <button id="CLICK:copyFiles">Copy Files</button>
+    </p>
+    <!--END-->
+    </p>
+  </div>
+
+  <div class="template" id="page10">
+    <h3>Start Debugging</h3>
+    <p>Use Visual Studio for debugging RimWorld</p>
+    <p class="spacer">
+      Now that you have a source code project linked to RimWorld you<br />
+      can open it and start debugging RimWorld. Follow these steps to get going:
+    </p>
+    <ol>
+      <li>
+        Open the project file: <a id="CLICK:openRimworldDebugSolution">
+          <!--VAL:rimworldDebugSolution-->
+        </a>
+      </li>
+      <li>
+        Choose <code>Edit</code> > <code>Go To</code> > <code>Go To All</code>, enter <b>togglepaused</b> and press
+        enter.
+      </li>
+      <li>
+        On the first code line of <b>TogglePaused()</b>, set a breakpoint by clicking on the left side of the line
+        number: <br />
+        <img src="img/breakpoint.png" />
+      </li>
+      <li>
+        Start RimWorld, then go to Visual Studio and select<br />
+        <code>Debug</code> > <code>Attach Unity Debugger</code> then double click on the line that will appear: <br />
+        <img src="img/attachDebugger.png" height="120" style="padding-top:10px" />
+      </li>
+      <li>
+        Enter a game and press pause to break into Visual Studio.<br /><b>DONE.</b>
+      </li>
+    </ol>
+  </div>
+
+  <div class="template" id="page11">
+    <h3>Reverting RimWorld</h3>
+    <p>Use Steam to quickly revert your changes</p>
+    <p class="spacer">
+      The fastest way to revert your changes is to remove the RimWorld folder and reinstall it via Steam.
+    </p>
+    <ol>
+      <li>
+        Open the RimWorld folder and delete it: <a id="CLICK:openRimWorldFolder">
+          <!--VAL:rimworldFolder-->
+        </a>
+      </li>
+      <li>
+        Go to Steam and right click on RimWorld > Properties > Local Files > Verify Integrity of Game Files
+      </li>
+    </ol>
+    <p class="spacer">This will remove any changes. You can then simply go back to step 9 to patch it again.</p>
+    <p style="padding-top:150px" />
+    <p class="important" style="margin-left: 30%">
+      <img src="img/brrainz.png" height="34" style="float: left; padding-right: 8px" />
+      Please consider donating to support my efforts!<br />
+      <a href="https://patreon.com/pardeike" target="_blank"
+        style="color: black; text-decoration: underline; line-height: 1.2em">
+        https://patreon.com/pardeike
+      </a>
+    </p>
   </div>
 
   <script src="./js/tools.js"></script>
