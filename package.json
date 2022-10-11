@@ -1,6 +1,6 @@
 {
   "name": "rimworld4debugging",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This project will help you with debugging RimWorld",
   "main": "main.js",
   "scripts": {
