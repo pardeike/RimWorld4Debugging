@@ -4,7 +4,10 @@
   "description": "This project will help you with debugging RimWorld",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "go": "electron .",
+    "start": "electron-forge start",
+    "package": "electron-forge package --arch=x64",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
@@ -24,11 +27,34 @@
   },
   "homepage": "https://github.com/pardeike/RimWorld4Debugging#readme",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.67",
+    "@electron-forge/maker-deb": "^6.0.0-beta.67",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.67",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.67",
+    "@electron-forge/maker-zip": "^6.0.0-beta.67",
     "electron": "^21.1.0"
   },
   "dependencies": {
     "electron-json-storage": "^4.5.0",
+    "electron-squirrel-startup": "^1.0.0",
     "find-process": "^1.4.7",
     "win-version-info": "^6.0.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-zip",
+          "config": {
+            "name": "RimWorld4Debugging"
+          },
+          "platforms": [
+            "darwin",
+            "win32"
+          ]
+        }
+      ]
+    }
   }
 }

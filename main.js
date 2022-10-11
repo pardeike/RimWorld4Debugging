@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, ipcMain, shell, clipboard } = require('electron')
+const { ipcMain, app, BrowserWindow, dialog, shell, clipboard } = require('electron')
 const { promises: fs } = require("fs")
 const find = require('find-process')
 const winVersionInfo = require('win-version-info')
