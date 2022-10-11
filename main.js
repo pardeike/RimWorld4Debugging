@@ -120,6 +120,18 @@ app.whenReady().then(() => {
     }
   })
 
+  ipcMain.handle('hubInstallPath', async (_) => {
+    try {
+      const appData = process.env.APPDATA
+      const txt = await fs.readFile(`${appData}\\UnityHub\\secondaryInstallPath.json`, 'utf8')
+      const path = txt.replace(/^"|"$/g, '')
+      if (path) return path
+    } catch (error) {
+      console.log(`error: ${error}`)
+    }
+    return 'C:\\Program Files\\Unity\\Hub\\Editor'
+  })
+
   createWindow()
   console.log(`preferences: ${app.getPath('userData')}`)
 

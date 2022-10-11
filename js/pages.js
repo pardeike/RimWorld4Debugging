@@ -1,5 +1,6 @@
 var rimWorldFolder = ''
 var rimworldVersion = ''
+var hubIsDownloading = false
 var isPatched = false
 
 async function loadSetting() {
@@ -9,6 +10,13 @@ async function loadSetting() {
 }
 
 const pageFilters = {
+}
+
+const pageSecondTick = {
+  6: async () => {
+    hubIsDownloading = await pageConditions.unityFound()
+    return hubIsDownloading
+  }
 }
 
 const pageConditions = {
@@ -24,12 +32,13 @@ const pageConditions = {
   },
   unityFound: async () => {
     if (!rimworldVersion) return false
-    const unityRootPath = unityRoot(rimworldVersion)
+    const unityRootPath = await unityEditorsRoot(rimworldVersion)
     const unityVersion = await fileProperties(`${unityRootPath}\\Unity.exe`)
     const rimworldVersionShort = rimworldVersion.replace(/\.\d+$/, '')
     return unityVersion && unityVersion.indexOf(rimworldVersionShort) === 0
   },
-  isPatched: async () => isPatched
+  isPatched: async () => isPatched,
+  hubIsDownloading: async () => hubIsDownloading
 }
 
 const pageContinuation = {
@@ -42,8 +51,8 @@ const pageValues = {
   rimworldFolder: async () => rimWorldFolder,
   rimworldVersion: async () => rimworldVersion,
   rimworldVersionShort: async () => rimworldVersion.replace(/\.\d+$/, ''),
-  unityFolder: async () => unityRoot(rimworldVersion),
-  unityDevMono: async () => unityRoot(rimworldVersion, 'Data\\PlaybackEngines\\windowsstandalonesupport\\Variations\\win64_development_mono'),
+  unityFolder: async () => await unityEditorsRoot(rimworldVersion),
+  unityDevMono: async () => await unityEditorsRoot(rimworldVersion, 'Data\\PlaybackEngines\\windowsstandalonesupport\\Variations\\win64_development_mono'),
   rimworldManagedFolder: async () => rimWorldFolder + '\\RimWorldWin64_Data\\Managed',
   rimworldExportSuggestion: async () => rimWorldFolder.replace(/\\[^\\]+$/, ''),
   rimworldExportFolder: async () => rimWorldFolder.replace(/\\[^\\]+$/, '') + '\\Assembly-CSharp',
@@ -52,22 +61,32 @@ const pageValues = {
 
 const pageEvents = {
   openRimWorldFolder: async () => {
-    openPath(rimWorldFolder)
+    await openPath(rimWorldFolder)
   },
   openUnityFolder: async () => {
-    openPath(unityRoot(rimworldVersion))
+    await openPath(await unityEditorsRoot(rimworldVersion))
   },
   openRimWorldManaged: async () => {
-    openPath(await pageValues.rimworldManagedFolder())
+    await openPath(await pageValues.rimworldManagedFolder())
   },
   openRimWorldAssemblyCSharp: async () => {
-    openPath(await pageValues.rimworldManagedFolder() + '\\Assembly-CSharp.dll')
+    await openPath(await pageValues.rimworldManagedFolder() + '\\Assembly-CSharp.dll')
   },
   openUnityDownloadArchive: async () => {
-    openPath('https://unity3d.com/get-unity/download/archive')
+    await openPath('https://unity3d.com/get-unity/download/archive')
   },
   openRimworldDebugSolution: async () => {
-    openPath(await pageValues.rimworldDebugSolution())
+    await openPath(await pageValues.rimworldDebugSolution())
+  },
+  resetRimWorldLocation: async () => {
+    rimWorldFolder = ''
+    rimworldVersion = ''
+    jumpToPage(0)
+  },
+  triggerHubDownload: async () => {
+    hubIsDownloading = true
+    await openPath(`unityhub://${await pageValues.rimworldVersionShort()}f1`)
+    jumpToPage(0)
   },
   setRimWorldFolder: async () => {
     const exePath = document.getElementById('rimworldFolder').value.replace(/"$/, '').replace(/^"/, '')

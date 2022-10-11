@@ -21,5 +21,6 @@ contextBridge.exposeInMainWorld('electron', {
   fileVersion: path => ipcRenderer.invoke('fileVersion', path),
   copyFile: (source, target) => ipcRenderer.invoke('copyFile', source, target),
   writeFile: (source, text) => ipcRenderer.invoke('writeFile', source, text),
-  appendIfNecessary: (source, text) => ipcRenderer.invoke('appendIfNecessary', source, text)
+  appendIfNecessary: (source, text) => ipcRenderer.invoke('appendIfNecessary', source, text),
+  hubInstallPath: () => ipcRenderer.invoke('hubInstallPath')
 })

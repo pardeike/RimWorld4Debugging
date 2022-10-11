@@ -49,9 +49,9 @@ async function fileProperties(path) {
   return await window.electron.fileVersion(path)
 }
 
-function unityRoot(rimWorldVersion, subpath = '') {
+async function unityEditorsRoot(rimWorldVersion, subpath) {
   const version = rimWorldVersion.replace(/\.\d+$/, '') + 'f1'
-  var res = `C:\\Program Files\\Unity\\Hub\\Editor\\${version}\\Editor`
+  var res = `${await window.electron.hubInstallPath()}\\${version}\\Editor`
   if (subpath) res += '\\' + subpath
   return res
 }

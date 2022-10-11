@@ -72,6 +72,13 @@ button {
   cursor: pointer;
 }
 
+.ghost {
+  background-color: transparent;
+  color: aquamarine;
+  border: 1px dotted aquamarine;
+  opacity: 0.75;
+}
+
 table {
   border-collapse: collapse;
 }

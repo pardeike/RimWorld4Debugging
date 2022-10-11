@@ -17,12 +17,23 @@ document.querySelector('#nav-next').addEventListener('click', () => {
   return false
 })
 
+var pageSecondTickTimer = null
+
 async function jumpToPage(delta) {
   if (currentPage == 0) {
     // initial page loading
     currentPage = await getPreference('currentPage', 1)
     loadSetting()
   }
+  if (pageSecondTickTimer)
+    clearInterval(pageSecondTickTimer)
+  pageSecondTickTimer = setInterval(async () => {
+    const shouldReloadFunc = pageSecondTick[currentPage]
+    if (shouldReloadFunc && await shouldReloadFunc()) {
+      jumpToPage(0)
+      return
+    }
+  }, 1000)
   const spinnerTimer = setTimeout(() => {
     document.getElementById('spinner').style.display = 'grid'
   }, 100)
@@ -38,16 +49,22 @@ async function jumpToPage(delta) {
     if (pageFilter)
       html = await pageFilter(html)
 
-    var keys = Object.keys(pageConditions)
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i]
-      if (html.match(new RegExp(`:${key}`))) {
-        const show = await pageConditions[key]()
-        if (show)
-          html = html.replace(new RegExp(`<!-- *ELSE:${key} *-->.+?<!-- *END *-->`, 'smg'), '')
-        else
-          html = html.replace(new RegExp(`<!-- *IF:${key} *-->.+?<!-- *END *-->`, 'smg'), '')
+    while (true) {
+      var keys = Object.keys(pageConditions)
+      var found = false
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        if (html.match(new RegExp(`:${key}`))) {
+          const show = await pageConditions[key]()
+          const oldHtml = html
+          if (show)
+            html = html.replace(new RegExp(`<!-- *ELSE:${key} *-->.+<!-- *ENDELSE:${key} *-->`, 'smg'), '')
+          else
+            html = html.replace(new RegExp(`<!-- *IF:${key} *-->.+<!-- *ENDIF:${key} *-->`, 'smg'), '')
+          found = oldHtml != html
+        }
       }
+      if (!found) break
     }
 
     keys = Object.keys(pageValues)

@@ -112,7 +112,10 @@ connect-src 'self' https://ka-f.fontawesome.com">
     </table>
     </p>
     <p><i class="ok fa-solid fa-check"></i></p>
-    <!--END-->
+    <p class="spacer">
+      <button class="ghost" id="CLICK:resetRimWorldLocation">Reset</button>
+    </p>
+    <!--ENDIF:rimworldFound-->
     <!--ELSE:rimworldFound-->
     <p>Many people have RimWorld in non-standard locations. Help to locate it:</p>
     <ol>
@@ -134,12 +137,13 @@ connect-src 'self' https://ka-f.fontawesome.com">
         <button id="CLICK:setRimWorldFolder">Save</button>
       </li>
     </ol>
-    <!--END-->
+    <!--ENDELSE:rimworldFound-->
   </div>
 
   <div class="template" id="page6">
     <h3>Download and Install (4)</h3>
     <p>Unity Editor</p>
+
     <!--IF:unityFound-->
     <p>
       We found the correct Unity installation for your RimWorld version:<br />
@@ -148,22 +152,29 @@ connect-src 'self' https://ka-f.fontawesome.com">
       </a>
     </p>
     <p><i class="ok fa-solid fa-check"></i></p>
-    <!--END-->
+    <!--ENDIF:unityFound-->
+
     <!--ELSE:unityFound-->
-    <ul>
-      <li>Open the <a id="CLICK:openUnityDownloadArchive">Unity download archive</a></li>
-      <li>Find the version that matches your RimWorld version:<b>
-          <span class="important">
-            <!--VAL:rimworldVersionShort-->f1
-          </span>
-        </b></li>
-      <li>In your browser, click this button:<br /><img src="img/unityhub.png" /></li>
-    </ul>
     <p>
-      <hr />
+      You current RimWorld Unity version is
+      <span class="important">
+        <!--VAL:rimworldVersionShort-->f1
+      </span>
     </p>
+
+    <!--ELSE:hubIsDownloading-->
+    <p>
+      To launch Unity Hub and have it download the correct version, click<br />
+      <img id="CLICK:triggerHubDownload" style="padding-top: 10px; cursor: pointer;" src="img/unityhub.png" /><br />
+      <img src="img/hubEditorInstall.png" height="380" style="padding-top: 10px" />
+    </p>
+    <!--ENDELSE:hubIsDownloading-->
+
+    <!--IF:hubIsDownloading-->
     <p>Waiting until Unity Hub completes the installation ...</p>
-    <!--END-->
+    <!--ENDIF:hubIsDownloading-->
+
+    <!--ENDELSE:unityFound-->
   </div>
 
   <div class="template" id="page7">
@@ -223,7 +234,7 @@ connect-src 'self' https://ka-f.fontawesome.com">
     <p>
       <button id="CLICK:copyFiles">Copy Files</button>
     </p>
-    <!--END-->
+    <!--ENDELSE:isPatched-->
     </p>
   </div>
 
