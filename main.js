@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron')
+const { app, BrowserWindow, dialog, ipcMain, shell, clipboard } = require('electron')
 const find = require('find-process')
 const winVersionInfo = require('win-version-info')
 const storage = require('electron-json-storage')
@@ -68,6 +68,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle('shell', async (_, method, params) => {
     return await shell[method](params)
+  })
+
+  ipcMain.handle('clipboard', async (_, method, params) => {
+    return await clipboard[method](params)
   })
 
   ipcMain.handle('fileVersion', (_, path) => {

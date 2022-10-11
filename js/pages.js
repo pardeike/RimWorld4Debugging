@@ -38,7 +38,10 @@ const pageValues = {
   rimworldFolder: async () => rimWorldFolder,
   rimworldVersion: async () => rimworldVersion,
   rimworldVersionShort: async () => rimworldVersion.replace(/\.\d+$/, ''),
-  unityFolder: async () => unityRoot(rimworldVersion)
+  unityFolder: async () => unityRoot(rimworldVersion),
+  unityDevMono: async () => unityRoot(rimworldVersion, 'Data\\PlaybackEngines\\windowsstandalonesupport\\Variations\\win64_development_mono'),
+  rimworldManagedFolder: async () => rimWorldFolder + '\\RimWorldWin64_Data\\Managed',
+  rimworldExportFolder: async () => rimWorldFolder.replace(/\\[^\\]+$/, '')
 }
 
 const pageEvents = {
@@ -47,6 +50,12 @@ const pageEvents = {
   },
   openUnityFolder: async () => {
     openPath(unityRoot(rimworldVersion))
+  },
+  openRimWorldManaged: async () => {
+    openPath(rimWorldFolder + '\\RimWorldWin64_Data\\Managed')
+  },
+  openRimWorldAssemblyCSharp: async () => {
+    openPath(rimWorldFolder + '\\RimWorldWin64_Data\\Managed\\Assembly-CSharp.dll')
   },
   openUnityDownloadArchive: async () => {
     openPath('https://unity3d.com/get-unity/download/archive')
@@ -65,5 +74,9 @@ const pageEvents = {
   },
   refreshRimWorld: async () => {
     jumpToPage(0)
+  },
+  copyExportFolderToClipboard: async () => {
+    const txt = await pageValues.rimworldExportFolder()
+    copyToClipboard(txt)
   }
 }

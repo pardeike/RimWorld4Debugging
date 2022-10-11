@@ -20,5 +20,6 @@ contextBridge.exposeInMainWorld('electron', {
   find: (typ, val, strict) => ipcRenderer.invoke('find', typ, val, strict),
   openDialog: (method, config) => ipcRenderer.invoke('dialog', method, config),
   shell: (method, config) => ipcRenderer.invoke('shell', method, config),
+  clipboard: (method, config) => ipcRenderer.invoke('clipboard', method, config),
   fileVersion: path => ipcRenderer.invoke('fileVersion', path)
 })

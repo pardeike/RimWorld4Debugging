@@ -28,11 +28,17 @@ async function openPath(path) {
   await window.electron.shell('openPath', path)
 }
 
+async function copyToClipboard(text) {
+  await window.electron.clipboard('writeText', text)
+}
+
 async function fileProperties(path) {
   return await window.electron.fileVersion(path)
 }
 
-function unityRoot(rimWorldVersion) {
+function unityRoot(rimWorldVersion, subpath = '') {
   const version = rimWorldVersion.replace(/\.\d+$/, '') + 'f1'
-  return `C:\\Program Files\\Unity\\Hub\\Editor\\${version}\\Editor`
+  var res = `C:\\Program Files\\Unity\\Hub\\Editor\\${version}\\Editor`
+  if (subpath) res += '\\' + subpath
+  return res
 }

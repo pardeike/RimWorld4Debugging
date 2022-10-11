@@ -180,7 +180,59 @@ connect-src 'self' https://ka-f.fontawesome.com">
     <!--END-->
   </div>
 
-  <div class="template" id="page7"></div>
+  <div class="template" id="page7">
+    <h3>Decompile Assembly-CSharp.dll</h3>
+    <p>Using JetBrains dotPeek (1 of 2)</p>
+    <p class="spacer">Let's create a project from the RimWorld code</p>
+    <ul>
+      <li>
+        Start <b>dotPeek</b> and open File > Open:<br />
+        <img src="img/dotPeakOpen.png" />
+      </li>
+      <li>Navigate to
+        <a id="CLICK:openRimWorldManaged">
+          <!--VAL:rimworldManagedFolder-->
+        </a>
+        and open <b>Assembly-CSharp.dll</b>
+      </li>
+      <li>Alternatively, choose <a id="CLICK:openRimWorldAssemblyCSharp">Assembly-CSharp.dll</a> and open it with
+        dotPeek
+      </li>
+      <li>In the next step we will export the assembly...</li>
+    </ul>
+  </div>
+
+  <div class="template" id="page8">
+    <h3>Decompile Assembly-CSharp.dll</h3>
+    <p>Using JetBrains dotPeek (2 of 2)</p>
+    <p class="spacer">Export the assembly to a new Visual Studio project:</p>
+    <p>
+      <img src="img/dotPeekExport.png" height="180" style="padding-bottom:10px" /><br />
+      Use default export settings and export the project to the <b>following location:</b> <br />
+      <code><!--VAL:rimworldExportFolder--></code> <button id="CLICK:copyExportFolderToClipboard">Copy To
+        Clipboard</button><br />
+      <img src="img/dotPeekOptions.png" style="padding-top:10px" height="200" /><br />
+      Exporting will take a while...
+    </p>
+  </div>
+
+  <div class="template" id="page9">
+    <h3>Copy Debub Files</h3>
+    <p>Using the Unity Editor files we replace some RimWorld files</p>
+    <p class="spacer">Files we will replace/add:</p>
+    <p class="minilink">
+      <!--VAL:rimworldExportFolder-->\Assembly-CSharp\Assembly-CSharp.pdb<br />
+      <!--VAL:unityDevMono-->\UnityPlayer.dll<br />
+      <!--VAL:unityDevMono-->\WindowsPlayer.dll<br />
+      <!--VAL:unityDevMono-->\WinPixEventRuntime.dll<br />
+      <!--VAL:unityDevMono-->\MonoBleedingEdge\EmbedRuntime\mono-2.0-bdwgc.dll
+    </p>
+    <p>Files we will edit:</p>
+    <p class="minilink">
+      <!--VAL:rimworldFolder-->\RimWorldWin64_Data\boot.config<br />
+      <!--VAL:rimworldManagedFolder-->\Assembly-CSharp.ini
+    </p>
+  </div>
 
   <script src="./js/tools.js"></script>
   <script src="./js/pages.js"></script>
