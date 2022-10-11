@@ -1,4 +1,5 @@
 const { app, BrowserWindow, dialog, ipcMain, shell, clipboard } = require('electron')
+const { promises: fs } = require("fs")
 const find = require('find-process')
 const winVersionInfo = require('win-version-info')
 const storage = require('electron-json-storage')
@@ -84,8 +85,38 @@ app.whenReady().then(() => {
     }
   })
 
-  ipcMain.on('ondragstart', (_, filePath) => {
-    console.log(`ondragstart: ${filePath}`)
+  ipcMain.handle('copyFile', async (_, source, target) => {
+    try {
+      await fs.copyFile(source, target)
+      return ''
+    } catch (error) {
+      return error
+    }
+  })
+
+  ipcMain.handle('writeFile', async (_, source, text) => {
+    try {
+      await fs.writeFile(source, text)
+      return ''
+    } catch (error) {
+      return error
+    }
+  })
+
+  ipcMain.handle('appendIfNecessary', async (_, source, text) => {
+    try {
+      const file = await fs.readFile(source)
+      if (!file.includes(text)) {
+        const lineEnding = file.includes('\r\n') ? '\r\n' : '\n'
+        if (file.lastIndexOf(lineEnding) !== file.length - lineEnding.length) {
+          text = lineEnding + text
+          await fs.appendFile(source, `${text}${lineEnding}`)
+        }
+      }
+      return ''
+    } catch (error) {
+      return error
+    }
   })
 
   createWindow()

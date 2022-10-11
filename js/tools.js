@@ -1,3 +1,16 @@
+async function setProgress(value, total) {
+  const holder = document.getElementById('progressHolder')
+  if (!holder) return
+  holder.style.display = value < 0 ? 'none' : 'block'
+  const progress = document.getElementById('progress')
+  if (!progress) return
+  progress.style.width = `${value < 0 ? 0 : Math.round(value / total * 100)}%`
+}
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 async function hasPreference(key) {
   return await window.electron.has(key)
 }
@@ -41,4 +54,16 @@ function unityRoot(rimWorldVersion, subpath = '') {
   var res = `C:\\Program Files\\Unity\\Hub\\Editor\\${version}\\Editor`
   if (subpath) res += '\\' + subpath
   return res
+}
+
+async function copyFile(source, target) {
+  return await window.electron.copyFile(source, target)
+}
+
+async function writeFile(source, target) {
+  return await window.electron.writeFile(source, target)
+}
+
+async function appendIfNecessary(source, text) {
+  return await window.electron.appendIfNecessary(source, text)
 }

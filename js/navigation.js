@@ -95,3 +95,4 @@ async function jumpToPage(delta) {
 }
 
 jumpToPage(0)
+setProgress(-1)

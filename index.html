@@ -15,6 +15,9 @@ connect-src 'self' https://ka-f.fontawesome.com">
 
 <body>
   <div id="spinner"><i class="fa-solid fa-wrench"></i></div>
+  <div id="progressHolder">
+    <div id="progress"></div>
+  </div>
   <h1 class="nowrap">RimWorld 4 Debugging</h1>
   <div id="navigation">
     <i id="nav-prev" class="fa-solid fa-circle-left"></i>
@@ -28,12 +31,6 @@ connect-src 'self' https://ka-f.fontawesome.com">
   </div>
 
   <div class="template" id="page1">
-    <!--<div draggable="true" id="drag">
-        <div>
-          <i class="fa-solid fa-file"></i>
-          <span>Some File</span>
-        </div>
-      </div>-->
     <h3>Welcome</h3>
     <p>Want to debug RimWorld? This application will get you started.</p>
     <p>If you have trouble or find bugs, join our <a href="https://discord.gg/2q7U6URNr3"
@@ -209,7 +206,7 @@ connect-src 'self' https://ka-f.fontawesome.com">
     <p>
       <img src="img/dotPeekExport.png" height="180" style="padding-bottom:10px" /><br />
       Use default export settings and export the project to the <b>following location:</b> <br />
-      <code><!--VAL:rimworldExportFolder--></code> <button id="CLICK:copyExportFolderToClipboard">Copy To
+      <code><!--VAL:rimworldExportSuggestion--></code> <button id="CLICK:copyExportFolderToClipboard">Copy To
         Clipboard</button><br />
       <img src="img/dotPeekOptions.png" style="padding-top:10px" height="200" /><br />
       Exporting will take a while...
@@ -221,9 +218,9 @@ connect-src 'self' https://ka-f.fontawesome.com">
     <p>Using the Unity Editor files we replace some RimWorld files</p>
     <p class="spacer">Files we will replace/add:</p>
     <p class="minilink">
-      <!--VAL:rimworldExportFolder-->\Assembly-CSharp\Assembly-CSharp.pdb<br />
+      <!--VAL:rimworldExportFolder-->\Assembly-CSharp.pdb<br />
       <!--VAL:unityDevMono-->\UnityPlayer.dll<br />
-      <!--VAL:unityDevMono-->\WindowsPlayer.dll<br />
+      <!--VAL:unityDevMono-->\WindowsPlayer.exe<br />
       <!--VAL:unityDevMono-->\WinPixEventRuntime.dll<br />
       <!--VAL:unityDevMono-->\MonoBleedingEdge\EmbedRuntime\mono-2.0-bdwgc.dll
     </p>
@@ -232,6 +229,8 @@ connect-src 'self' https://ka-f.fontawesome.com">
       <!--VAL:rimworldFolder-->\RimWorldWin64_Data\boot.config<br />
       <!--VAL:rimworldManagedFolder-->\Assembly-CSharp.ini
     </p>
+    <p class="spacer">Click the button below to start the copy process</p>
+    <button id="CLICK:copyFiles">Copy Files</button>
   </div>
 
   <script src="./js/tools.js"></script>

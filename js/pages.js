@@ -41,7 +41,8 @@ const pageValues = {
   unityFolder: async () => unityRoot(rimworldVersion),
   unityDevMono: async () => unityRoot(rimworldVersion, 'Data\\PlaybackEngines\\windowsstandalonesupport\\Variations\\win64_development_mono'),
   rimworldManagedFolder: async () => rimWorldFolder + '\\RimWorldWin64_Data\\Managed',
-  rimworldExportFolder: async () => rimWorldFolder.replace(/\\[^\\]+$/, '')
+  rimworldExportSuggestion: async () => rimWorldFolder.replace(/\\[^\\]+$/, ''),
+  rimworldExportFolder: async () => rimWorldFolder.replace(/\\[^\\]+$/, '') + '\\Assembly-CSharp'
 }
 
 const pageEvents = {
@@ -76,7 +77,64 @@ const pageEvents = {
     jumpToPage(0)
   },
   copyExportFolderToClipboard: async () => {
-    const txt = await pageValues.rimworldExportFolder()
+    const txt = await pageValues.rimworldExportSuggestion()
     copyToClipboard(txt)
+  },
+  copyFiles: async () => {
+    const rimworldExportFolder = await pageValues.rimworldExportFolder()
+    const rimworldManagedFolder = await pageValues.rimworldManagedFolder()
+    const unityDevMono = await pageValues.unityDevMono()
+    const filesToCopy = [
+      {
+        from: `${rimworldExportFolder}\\Assembly-CSharp.pdb`,
+        to: `${rimworldManagedFolder}\\Assembly-CSharp.pdb`
+      },
+      {
+        from: `${unityDevMono}\\UnityPlayer.dll`,
+        to: `${rimWorldFolder}\\UnityPlayer.dll`
+      },
+      {
+        from: `${unityDevMono}\\WindowsPlayer.exe`,
+        to: `${rimWorldFolder}\\RimWorldWin64.exe`
+      },
+      {
+        from: `${unityDevMono}\\WinPixEventRuntime.dll`,
+        to: `${rimWorldFolder}\\WinPixEventRuntime.dll`
+      },
+      {
+        from: `${unityDevMono}\\MonoBleedingEdge\\EmbedRuntime\\mono-2.0-bdwgc.dll`,
+        to: `${rimWorldFolder}\\MonoBleedingEdge\\EmbedRuntime\\mono-2.0-bdwgc.dll`
+      }
+    ]
+
+    const total = filesToCopy.length + 2
+    setProgress(0, total)
+
+    var n = 0
+    for (const file of filesToCopy) {
+      const error = await copyFile(file.from, file.to)
+      if (error)
+        alert(`Error copying ${file.from} to ${file.to}: ${error}`)
+      else
+        await sleep(200)
+      setProgress(++n, total)
+    }
+
+    const err1 = await appendIfNecessary(`${rimWorldFolder}\\RimWorldWin64_Data\\boot.config`, 'player-connection-debug=1')
+    if (err1)
+      alert(`Error appending to boot.config: ${err1}`)
+    else
+      await sleep(200)
+    setProgress(++n, total)
+
+    const err2 = await writeFile(`${rimworldManagedFolder}\\Assembly-CSharp.ini`, '[.NET Framework Debugging Control]\r\nGenerateTrackingInfo=1\r\nAllowOptimize=0')
+    if (err2)
+      alert(`Error writing to Assembly-CSharp.ini: ${err2}`)
+    else
+      await sleep(200)
+    setProgress(++n, total)
+
+    await sleep(200)
+    setProgress(-1, 0)
   }
 }

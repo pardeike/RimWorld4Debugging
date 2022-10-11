@@ -11,9 +11,6 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 contextBridge.exposeInMainWorld('electron', {
-  startDrag: fileName => {
-    ipcRenderer.send('ondragstart', path.join(process.cwd(), fileName))
-  },
   has: (key) => ipcRenderer.invoke('has', key),
   load: (key) => ipcRenderer.invoke('load', key),
   save: (key, val) => ipcRenderer.invoke('save', key, val),
@@ -21,5 +18,8 @@ contextBridge.exposeInMainWorld('electron', {
   openDialog: (method, config) => ipcRenderer.invoke('dialog', method, config),
   shell: (method, config) => ipcRenderer.invoke('shell', method, config),
   clipboard: (method, config) => ipcRenderer.invoke('clipboard', method, config),
-  fileVersion: path => ipcRenderer.invoke('fileVersion', path)
+  fileVersion: path => ipcRenderer.invoke('fileVersion', path),
+  copyFile: (source, target) => ipcRenderer.invoke('copyFile', source, target),
+  writeFile: (source, text) => ipcRenderer.invoke('writeFile', source, text),
+  appendIfNecessary: (source, text) => ipcRenderer.invoke('appendIfNecessary', source, text)
 })

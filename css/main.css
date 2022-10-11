@@ -161,6 +161,27 @@ table td {
   animation: rotate 0.5s alternate-reverse infinite;
 }
 
+#progressHolder {
+  position: absolute;
+  z-index: 1000;
+  left: calc(50% - 128px);
+  top: calc(50% - 12px);
+  border-radius: 13px;
+  width: 256px;
+  height: 24px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-items: center;
+}
+
+#progress {
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 8px;
+}
+
 @keyframes rotate {
   from {
     transform: scaleX(1);
@@ -194,40 +215,6 @@ table td {
   width: calc(100% - 80px);
   background-color: #222;
   padding: 20px;
-}
-
-#drag {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 64px;
-  height: 64px;
-  cursor: grab;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  text-align: center;
-  display: grid;
-  justify-items: center;
-}
-
-#drag div {
-  align-self: center;
-}
-
-#drag div i {
-  font-size: 1.5em;
-  display: block;
-}
-
-#drag div span {
-  font-size: 0.6em;
-  line-height: 0;
-  padding: 0;
-  margin: 0;
-}
-
-#drag:active {
-  cursor: grabbing;
 }
 
 #nextButton {
