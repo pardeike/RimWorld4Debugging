@@ -1,12 +1,10 @@
 var rimWorldFolder = ''
 var rimworldVersion = ''
 var hubIsDownloading = false
-var isPatched = false
 
 async function loadSetting() {
   rimWorldFolder = await getPreference('rimWorldFolder', '')
   rimworldVersion = await getPreference('rimworldVersion', '')
-  isPatched = await getPreference('isPatched', false)
 }
 
 const pageFilters = {
@@ -37,14 +35,12 @@ const pageConditions = {
     const rimworldVersionShort = rimworldVersion.replace(/\.\d+$/, '')
     return unityVersion && unityVersion.indexOf(rimworldVersionShort) === 0
   },
-  isPatched: async () => isPatched,
   hubIsDownloading: async () => hubIsDownloading
 }
 
 const pageContinuation = {
   5: async () => rimWorldFolder && rimworldVersion,
-  6: pageConditions.unityFound,
-  9: async () => isPatched
+  6: pageConditions.unityFound
 }
 
 const pageValues = {
@@ -160,9 +156,6 @@ const pageEvents = {
     else
       await sleep(200)
     setProgress(++n, total)
-
-    isPatched = true
-    await setPreference('isPatched', isPatched)
 
     await sleep(200)
     setProgress(-1, 0)
