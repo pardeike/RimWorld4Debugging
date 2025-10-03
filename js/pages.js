@@ -35,7 +35,8 @@ const pageConditions = {
     const rimworldVersionShort = rimworldVersion.replace(/\.\d+$/, '')
     return unityVersion && unityVersion.indexOf(rimworldVersionShort) === 0
   },
-  hubIsDownloading: async () => hubIsDownloading
+  hubIsDownloading: async () => hubIsDownloading,
+  filesCopied: async () => await getPreference('filesCopied', false)
 }
 
 const pageContinuation = {
@@ -168,6 +169,11 @@ const pageEvents = {
 
     await sleep(200)
     setProgress(-1, 0)
+    await setPreference('filesCopied', true)
+    jumpToPage(0)
+  },
+  resetPatch: async () => {
+    await setPreference('filesCopied', false)
     jumpToPage(0)
   }
 }

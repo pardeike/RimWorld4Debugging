@@ -216,6 +216,8 @@ connect-src 'self' https://ka-f.fontawesome.com">
   <div class="template" id="page9">
     <h3>Copy Debug Files</h3>
     <p>Using the Unity Editor files we replace some RimWorld files</p>
+    
+    <!--ELSE:filesCopied-->
     <p class="spacer">Files we will replace/add:</p>
     <p class="minilink">
       <!--VAL:rimworldExportFolder-->\Assembly-CSharp.pdb<br />
@@ -233,7 +235,19 @@ connect-src 'self' https://ka-f.fontawesome.com">
     <p>
       <button id="CLICK:copyFiles">Copy Files</button>
     </p>
+    <!--ENDELSE:filesCopied-->
+    
+    <!--IF:filesCopied-->
+    <p class="spacer">Debug files have been copied successfully!</p>
+    <p><i class="ok fa-solid fa-check"></i></p>
+    <p class="spacer">
+      If you need to patch RimWorld again (for example, after reverting changes),<br />
+      click the button below to reset and copy the files again.
     </p>
+    <p>
+      <button class="ghost" id="CLICK:resetPatch">Reset and Re-patch</button>
+    </p>
+    <!--ENDIF:filesCopied-->
   </div>
 
   <div class="template" id="page10">
