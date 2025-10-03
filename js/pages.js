@@ -48,7 +48,16 @@ const pageValues = {
   rimworldVersion: async () => rimworldVersion,
   rimworldVersionShort: async () => rimworldVersion.replace(/\.\d+$/, ''),
   unityFolder: async () => await unityEditorsRoot(rimworldVersion),
-  unityDevMono: async () => await unityEditorsRoot(rimworldVersion, 'Data\\PlaybackEngines\\windowsstandalonesupport\\Variations\\win64_development_mono'),
+  unityDevMono: async () => {
+    const basePath = 'Data\\PlaybackEngines\\windowsstandalonesupport\\Variations'
+    // Try new path first (Unity Hub 3.14+)
+    const newPath = await unityEditorsRoot(rimworldVersion, `${basePath}\\win64_player_development_mono`)
+    if (await directoryExists(newPath)) {
+      return newPath
+    }
+    // Fall back to old path (older Unity Hub versions)
+    return await unityEditorsRoot(rimworldVersion, `${basePath}\\win64_development_mono`)
+  },
   rimworldManagedFolder: async () => rimWorldFolder + '\\RimWorldWin64_Data\\Managed',
   rimworldExportSuggestion: async () => rimWorldFolder.replace(/\\[^\\]+$/, ''),
   rimworldExportFolder: async () => rimWorldFolder.replace(/\\[^\\]+$/, '') + '\\Assembly-CSharp',

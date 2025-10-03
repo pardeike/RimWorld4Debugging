@@ -132,6 +132,15 @@ app.whenReady().then(() => {
     return 'C:\\Program Files\\Unity\\Hub\\Editor'
   })
 
+  ipcMain.handle('directoryExists', async (_, path) => {
+    try {
+      const stats = await fs.stat(path)
+      return stats.isDirectory()
+    } catch (error) {
+      return false
+    }
+  })
+
   createWindow()
   console.log(`preferences: ${app.getPath('userData')}`)
 
