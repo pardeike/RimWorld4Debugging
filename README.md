@@ -6,7 +6,7 @@ I created this project to help everyone with debugging RimWorld. You simply down
 ![rimworld4debugging_QSpioxLOMb](https://user-images.githubusercontent.com/853584/195094519-0e6765b5-0324-4502-a133-8e0752cdb65f.png)
 
 ### Download Release
-Simply download the latest [release](https://github.com/pardeike/RimWorld4Debugging/releases/download/v1.0.1/rimworld4debugging-win32-x64-1.0.1.zip) and follow the instructions.
+Simply download the latest [release](https://github.com/pardeike/RimWorld4Debugging/releases/download/v1.0.2/rimworld4debugging-win32-x64-1.0.2.zip) and follow the instructions.
 
 ### Build Yourself
 Clone this repository and then run

@@ -1,6 +1,6 @@
 {
   "name": "rimworld4debugging",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This project will help you with debugging RimWorld",
   "main": "main.js",
   "scripts": {
@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/pardeike/RimWorld4Debugging#readme",
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.4",
-    "@electron-forge/maker-deb": "^6.0.4",
-    "@electron-forge/maker-rpm": "^6.0.4",
-    "@electron-forge/maker-squirrel": "^6.0.4",
-    "@electron-forge/maker-zip": "^6.0.4",
-    "electron": "^22.0.0"
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "electron": "^38.2.0"
   },
   "dependencies": {
     "electron-json-storage": "^4.6.0",
@@ -56,5 +56,8 @@
         }
       ]
     }
+  },
+  "resolutions": {
+    "node-abi": "^4.14.0"
   }
 }
