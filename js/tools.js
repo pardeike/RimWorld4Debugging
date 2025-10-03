@@ -56,6 +56,10 @@ async function unityEditorsRoot(rimWorldVersion, subpath) {
   return res
 }
 
+async function directoryExists(path) {
+  return await window.electron.directoryExists(path)
+}
+
 async function copyFile(source, target) {
   return await window.electron.copyFile(source, target)
 }
