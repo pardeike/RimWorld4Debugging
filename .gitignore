@@ -56,7 +56,3 @@ patches/mtime-cache.json
 spec/fixtures/logo.png
 
 out/
-
-# Documentation screenshots
-page9-*.png
-IMPLEMENTATION_SUMMARY.md
